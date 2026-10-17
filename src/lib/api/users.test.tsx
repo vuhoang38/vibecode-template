@@ -22,10 +22,9 @@ describe('usersQueryOptions', () => {
       expect(result.current.isSuccess).toBe(true)
     })
 
+    const first = result.current.data?.[0]
     expect(result.current.data?.length).toBeGreaterThan(0)
-    expect(result.current.data?.[0]).toMatchObject({
-      id: expect.any(String) as unknown as string,
-      email: expect.any(String) as unknown as string,
-    })
+    expect(first?.id).toBeTypeOf('string')
+    expect(first?.email).toContain('@')
   })
 })

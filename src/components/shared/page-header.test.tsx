@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import { PageHeader } from '@/components/shared/page-header'
+import { Button } from '@/components/ui/button'
 
 describe('PageHeader', () => {
   it('renders the title as the page heading', () => {
@@ -16,7 +17,7 @@ describe('PageHeader', () => {
   })
 
   it('renders actions beside the title', () => {
-    render(<PageHeader title="Users" actions={<button type="button">Invite</button>} />)
+    render(<PageHeader title="Users" actions={<Button>Invite</Button>} />)
 
     expect(screen.getByRole('button', { name: 'Invite' })).toBeInTheDocument()
   })

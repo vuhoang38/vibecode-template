@@ -12,10 +12,15 @@ class ResizeObserverStub {
   disconnect() {}
 }
 
-globalThis.ResizeObserver ??= ResizeObserverStub as unknown as typeof ResizeObserver
+function definePolyfill(target: object, property: string, value: unknown) {
+  if (property in target) return
+  Object.defineProperty(target, property, { value, writable: true, configurable: true })
+}
+
+definePolyfill(globalThis, 'ResizeObserver', ResizeObserverStub)
 
 if (typeof window !== 'undefined') {
-  window.matchMedia ??= ((query: string) => ({
+  definePolyfill(window, 'matchMedia', (query: string) => ({
     matches: false,
     media: query,
     onchange: null,
@@ -24,12 +29,12 @@ if (typeof window !== 'undefined') {
     addListener: () => {},
     removeListener: () => {},
     dispatchEvent: () => false,
-  })) as unknown as typeof window.matchMedia
+  }))
 
-  Element.prototype.scrollIntoView ??= () => {}
-  Element.prototype.hasPointerCapture ??= () => false
-  Element.prototype.setPointerCapture ??= () => {}
-  Element.prototype.releasePointerCapture ??= () => {}
+  definePolyfill(Element.prototype, 'scrollIntoView', () => {})
+  definePolyfill(Element.prototype, 'hasPointerCapture', () => false)
+  definePolyfill(Element.prototype, 'setPointerCapture', () => {})
+  definePolyfill(Element.prototype, 'releasePointerCapture', () => {})
 }
 
 afterEach(() => {
