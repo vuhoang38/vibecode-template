@@ -1,0 +1,23 @@
+@import 'tailwindcss';
+@import './tokens.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground text-body antialiased;
+    font-synthesis-weight: none;
+  }
+}
+
+@utility sunken {
+  background-color: var(--surface-sunken);
+}
