@@ -25,7 +25,13 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
-        <div className="flex items-center gap-2 px-2 py-1">
+        {/*
+          Collapsed, the sidebar is 3rem and SidebarHeader already spends p-2
+          of it. Keeping px-2 here too would leave 1rem of box for a size-8
+          logo, pushing it flush against the divider. Drop the inset and the
+          header padding alone lands the logo on the same x as the nav icons.
+        */}
+        <div className="flex items-center gap-2 px-2 py-1 group-data-[collapsible=icon]:px-0">
           <div className="bg-primary text-primary-foreground flex size-8 shrink-0 items-center justify-center rounded-md">
             <Boxes className="size-4" />
           </div>
