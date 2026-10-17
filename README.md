@@ -68,6 +68,15 @@ Then clear the route entries from `src/router.tsx`, the nav entries from
 Keep `src/components/shared/data-table.tsx` and `page-header.tsx`. They are the
 shared pieces, not examples.
 
+## Version constraints worth knowing
+
+- **TypeScript is pinned to 6.x.** TypeScript 7 is available and much faster,
+  but typescript-eslint hard-fails on it, which would take lint with it. Move
+  once typescript-eslint supports TS 7.
+- **TanStack Table is pinned to 8.x.** Version 9 is a full API rewrite
+  (`createTableHook` instead of `useReactTable`). Models reliably produce v8
+  code and shadcn's data-table docs target v8, so v8 is the right default here.
+
 ## Connect a real API
 
 Set `VITE_API_URL` in `.env`. Then in each `src/lib/api/<resource>.ts`, replace
