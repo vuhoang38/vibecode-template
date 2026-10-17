@@ -17,7 +17,7 @@ export default function DashboardPage() {
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {summary.isPending || !summary.data
-          ? Array.from({ length: 4 }, (_, index) => <Skeleton key={index} className="h-24" />)
+          ? Array.from({ length: 4 }, (_, index) => <Skeleton key={index} className="h-28" />)
           : [
               { label: 'Active users', metric: summary.data.activeUsers, value: formatNumber(summary.data.activeUsers.value) },
               { label: 'Requests', metric: summary.data.requests, value: formatNumber(summary.data.requests.value) },

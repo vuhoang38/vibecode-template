@@ -1,5 +1,5 @@
 import { TrendingDown, TrendingUp } from 'lucide-react'
-import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card'
+import { Card, CardContent, CardDescription } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import { formatPercent } from '@/lib/format'
 
@@ -17,21 +17,24 @@ export function StatCard({ label, value, deltaPercent, lowerIsBetter = false }: 
   const Icon = rising ? TrendingUp : TrendingDown
 
   return (
+    // One CardContent rather than CardHeader plus CardContent. Card puts gap-6
+    // between those two, and CardHeader reserves a second grid row this card
+    // never fills, so the label floated 24px above its own number.
     <Card>
-      <CardHeader className="pb-2">
+      <CardContent className="grid gap-1">
         <CardDescription className="text-label">{label}</CardDescription>
-      </CardHeader>
-      <CardContent className="flex items-end justify-between gap-2">
-        <span className="text-display tabular-nums">{value}</span>
-        <span
-          className={cn(
-            'text-caption flex items-center gap-1 tabular-nums',
-            good ? 'text-success' : 'text-destructive',
-          )}
-        >
-          <Icon className="size-3" />
-          {formatPercent(deltaPercent)}
-        </span>
+        <div className="flex items-end justify-between gap-2">
+          <span className="text-display tabular-nums">{value}</span>
+          <span
+            className={cn(
+              'text-caption flex items-center gap-1 tabular-nums',
+              good ? 'text-success' : 'text-destructive',
+            )}
+          >
+            <Icon className="size-3" />
+            {formatPercent(deltaPercent)}
+          </span>
+        </div>
       </CardContent>
     </Card>
   )
